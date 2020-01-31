@@ -21,7 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile', 'ProfileController@show');
 Route::post('/editFormPost', 'ProfileController@showForm');
 Route::post('/profile/edit', 'ProfileController@editTweet');
-Route::post('/profile','ProfileController@createTweet')->name('create');
+Route::post('/profile','ProfileController@createTweet');
+Route::post('/profile/delete','ProfileController@deleteTweet');
 
 
 

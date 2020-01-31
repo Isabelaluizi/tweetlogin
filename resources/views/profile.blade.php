@@ -5,17 +5,23 @@
 <p> Go Sign Up!</p>
 @else
 
-<p> Welcome {{Auth::user()->name}}</p>
+<p id="welcomeMessage"> Welcome {{Auth::user()->name}}</p>
 
 @foreach ($tweets as $tweet)
-    <p> {{$tweet->content}}</p>
-    <p><strong>{{$tweet->author}}</strong> </p>
+    <p class="tweetContent"> {{$tweet->content}}</p>
+    <p class="tweetauthor"><strong>{{$tweet->author}}</strong> </p>
+    @if (Auth::user()->name==$tweet->author)
    <form action="/editFormPost" method="post">
     @csrf
    <button type="submit" name= "id" value="{{$tweet->id}}">Edit</button>
    </form>
+   <form action="/profile/delete" method="post">
+    @csrf
+   <button type="submit" name= "id" value="{{$tweet->id}}">Delete</button>
+    </form>
+   @endif
 @endforeach
-<form action="{{route}}" method="post">
+<form action="/profile" method="post">
     @csrf
     <p>Create new post:</p>
     <span>Content:</span>
@@ -23,12 +29,8 @@
     @if ($errors->has('content'))
     <p>{{$errors->first('content')}}</p>
     @endif
-    <span>Author:</span>
-    <input type="text" name="author" value="{{ old('author') }}">
-    @if ($errors->has('author'))
-    <p>{{$errors->first('author')}}</p>
-    @endif
-    <input type="submit" value="submit">
+    <p>Author: {{Auth::user()->name }}</p>
+    <button type="text" name="author" value="{{ Auth::user()->name }}">Submit</button>
     </form>
 @endguest
 @endsection

@@ -4,10 +4,10 @@
 
 <form action="/profile/edit" method="post">
     @csrf
-  <span>Content:<span>
+  <span>Content:</span>
   <input type="text" name="content" value="{{$tweet->content}}" required>
-  <span>Author:<span>
-  <input type="text" name="author" value="{{$tweet->author}}" required>
+  <p>Author:{{Auth::user()->name }}</p>
+  <input type="hidden" name="author" value="{{Auth::user()->name }}" required>
   <button type="submit" name="id" value="{{$tweet->id}}">Submit</button>
 </form>
 
